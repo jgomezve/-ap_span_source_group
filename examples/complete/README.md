@@ -20,5 +20,6 @@ module "aci_scaffolding" {
   alias       = "ABC-ALIAS"
   description = "My Description"
 }
+
 ```
 <!-- END_TF_DOCS -->

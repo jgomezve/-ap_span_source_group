@@ -13,15 +13,14 @@ terraform {
 
 module "main" {
   source = "../.."
-
-  name = "TEST_GRP"
-  destination =  {
+  name   = "TEST_GRP"
+  destination = {
     name = "TEST_DST"
   }
 }
 
 data "aci_rest_managed" "spanSrcGrp" {
-  dn = "uni/infra/srcgrp-TEST_GRP"
+  dn         = "uni/infra/srcgrp-TEST_GRP"
   depends_on = [module.main]
 }
 

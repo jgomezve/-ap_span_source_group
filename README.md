@@ -19,6 +19,7 @@ module "aci_scaffolding" {
   alias       = "ABC-ALIAS"
   description = "My Description"
 }
+
 ```
 
 ## Requirements
@@ -38,20 +39,28 @@ module "aci_scaffolding" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | Tenant name. | `string` | n/a | yes |
-| <a name="input_alias"></a> [alias](#input\_alias) | Tenant alias. | `string` | `""` | no |
-| <a name="input_description"></a> [description](#input\_description) | Tenant description. | `string` | `""` | no |
+| <a name="input_name"></a> [name](#input\_name) | SPAN Source Group name. | `string` | n/a | yes |
+| <a name="input_description"></a> [description](#input\_description) | SPAN Source Group description. | `string` | `""` | no |
+| <a name="input_admin_state"></a> [admin\_state](#input\_admin\_state) | SPAN Source Group Administrative state. | `bool` | `false` | no |
+| <a name="input_sources"></a> [sources](#input\_sources) | List of SPAN sources. Default value `direction`: `both`. Default value `span_drop`: `false`. | <pre>list(object({<br>    description         = optional(string)<br>    name                = string<br>    direction           = optional(bool)<br>    span_drop           = optional(bool)<br>    tenant              = optional(bool)<br>    application_profile = optional(bool)<br>    endpoint_group      = optional(bool)<br>    l3out               = optional(bool)<br>  }))</pre> | `[]` | no |
+| <a name="input_filter_group"></a> [filter\_group](#input\_filter\_group) | SPAN Source Filter Gorup. | `string` | `null` | no |
+| <a name="input_destination"></a> [destination](#input\_destination) | SPAN Source Destination Gorup. | <pre>object({<br>    description = optional(string)<br>    name        = string<br>  })</pre> | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `fvTenant` object. |
-| <a name="output_name"></a> [name](#output\_name) | Tenant name. |
+| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `spanSrcGrp` object. |
+| <a name="output_name"></a> [name](#output\_name) | SPAN Source Group name. |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aci_rest_managed.fvTenant](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.spanRsSrcGrpToFilterGrp](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.spanRsSrcToEpg](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.spanRsSrcToL3extOut](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.spanSpanLbl](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.spanSrc](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.spanSrcGrp](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
 <!-- END_TF_DOCS -->
