@@ -13,10 +13,10 @@ resource "aci_rest_managed" "spanSrc" {
   dn         = "${aci_rest_managed.spanSrcGrp.dn}/src-${each.value.name}"
   class_name = "spanSrc"
   content = {
-    name        = each.value.name
-    description = each.value.description != null ? each.value.description : ""
-    dir         = each.value.direction != null ? each.value.direction : "both"
-    spanOnDrop  = each.value.span_drop != null ? each.value.span_drop : "false"
+    name       = each.value.name
+    descr      = each.value.description != null ? each.value.description : ""
+    dir        = each.value.direction != null ? each.value.direction : "both"
+    spanOnDrop = each.value.span_drop != null ? each.value.span_drop : "false"
   }
 }
 
@@ -25,13 +25,13 @@ resource "aci_rest_managed" "spanRsSrcToEpg" {
   dn         = "${aci_rest_managed.spanSrc[each.value.name].dn}/rssrcToEpg"
   class_name = "spanRsSrcToEpg"
   content = {
-    tDn = "uni/tn-${each.value.tenant}/ap-${each.value.application_profile_name}/epg-${each.value.endpoint_group_name}"
+    tDn = "uni/tn-${each.value.tenant}/ap-${each.value.application_profile}/epg-${each.value.endpoint_group}"
   }
 }
 
 resource "aci_rest_managed" "spanRsSrcToL3extOut" {
-  for_each   = { for source in var.sources : source.name => source if source.tenant != null && source.l3out != null }
-  dn         = "${aci_rest_managed.spanSrc[each.value.name].dn}/rssrcToL3extOut "
+  for_each   = { for source in var.sources : source.name => source if source.tenant != null && source.l3out != null && source.vlan != null }
+  dn         = "${aci_rest_managed.spanSrc[each.value.name].dn}/rssrcToL3extOut"
   class_name = "spanRsSrcToL3extOut"
   content = {
     addr  = "0.0.0.0"

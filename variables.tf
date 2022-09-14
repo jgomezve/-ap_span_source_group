@@ -30,12 +30,13 @@ variable "sources" {
   type = list(object({
     description         = optional(string)
     name                = string
-    direction           = optional(bool)
-    span_drop           = optional(bool)
-    tenant              = optional(bool)
-    application_profile = optional(bool)
-    endpoint_group      = optional(bool)
-    l3out               = optional(bool)
+    direction           = optional(string)
+    span_drop           = optional(string)
+    tenant              = optional(string)
+    application_profile = optional(string)
+    endpoint_group      = optional(string)
+    l3out               = optional(string)
+    vlan                = optional(number)
   }))
   default = []
 

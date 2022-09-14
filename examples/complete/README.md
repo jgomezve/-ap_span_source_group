@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Scaffolding Example
+# Access SPAN Source Group
 
 To run this example you need to execute:
 
