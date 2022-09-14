@@ -33,8 +33,8 @@ jobs:
           chmod +x terraform-docs
           echo "$GITHUB_WORKSPACE/terraform-docs" >> $GITHUB_PATH
 
-      # - name: Pre-commit Checks
-      #   uses: pre-commit/action@v3.0.0
+      - name: Pre-commit Checks
+        uses: pre-commit/action@v3.0.0
 
       - name: Terraform Test
         id: test
