@@ -1,3 +1,22 @@
+locals {
+  sources_access_paths = flatten([
+    for source in var.sources : [
+      for path in lookup(source, "access_paths", []) : {
+        source   = source.name
+        pod_id   = path.pod_id
+        node_id  = path.node_id
+        node2_id = path.node2_id
+        module   = path.module
+        port     = path.port
+        channel  = path.channel
+        fex_id   = path.fex_id
+        fex2_id  = path.fex2_id
+        sub_port = path.sub_port
+      }
+    ]
+  ])
+}
+
 resource "aci_rest_managed" "spanSrcGrp" {
   dn         = "uni/infra/srcgrp-${var.name}"
   class_name = "spanSrcGrp"
@@ -37,6 +56,51 @@ resource "aci_rest_managed" "spanRsSrcToL3extOut" {
     addr  = "0.0.0.0"
     encap = "vlan-${each.value.vlan}"
     tDn   = "uni/tn-${each.value.tenant}/out-${each.value.l3out}"
+  }
+}
+
+resource "aci_rest_managed" "spanRsSrcToPathEp_port" {
+  for_each   = { for sp in local.sources_access_paths : "${sp.source}-${sp.node_id}-${sp.port}" => sp if sp.channel == null && sp.fex_id == null && sp.sub_port == null }
+  dn         = "${aci_rest_managed.spanSrc[each.value.source].dn}/rssrcToPathEp-[${format("topology/pod-%s/paths-%s/pathep-[eth%s/%s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.module != null ? each.value.module : 1, each.value.port)}]"
+  class_name = "spanRsSrcToPathEp"
+  content = {
+    tDn = format("topology/pod-%s/paths-%s/pathep-[eth%s/%s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.module != null ? each.value.module : 1, each.value.port)
+  }
+}
+
+resource "aci_rest_managed" "spanRsSrcToPathEp_subport" {
+  for_each   = { for sp in local.sources_access_paths : "${sp.source}-${sp.node_id}-${sp.port}" => sp if sp.channel == null && sp.fex_id == null && sp.sub_port != null }
+  dn         = "${aci_rest_managed.spanSrc[each.value.source].dn}/rssrcToPathEp-[${format("topology/pod-%s/paths-%s/pathep-[eth%s/%s/%s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.module != null ? each.value.module : 1, each.value.port, each.value.sub_port)}]"
+  class_name = "spanRsSrcToPathEp"
+  content = {
+    tDn = format("topology/pod-%s/paths-%s/pathep-[eth%s/%s/%s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.module != null ? each.value.module : 1, each.value.port, each.value.sub_port)
+  }
+}
+
+resource "aci_rest_managed" "spanRsSrcToPathEp_channel" {
+  for_each   = { for sp in local.sources_access_paths : "${sp.source}-${sp.node_id}-${sp.channel}" => sp if sp.channel != null && sp.fex_id == null }
+  dn         = "${aci_rest_managed.spanSrc[each.value.source].dn}/rssrcToPathEp-[${format(each.value.node2_id != null ? "topology/pod-%s/protpaths-%s-%s/pathep-[%s]" : "topology/pod-%s/paths-%s/pathep-[%[4]s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.node2_id, each.value.channel)}]"
+  class_name = "spanRsSrcToPathEp"
+  content = {
+    tDn = format(each.value.node2_id != null ? "topology/pod-%s/protpaths-%s-%s/pathep-[%s]" : "topology/pod-%s/paths-%s/pathep-[%[4]s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.node2_id, each.value.channel)
+  }
+}
+
+resource "aci_rest_managed" "spanRsSrcToPathEp_fex_port" {
+  for_each   = { for sp in local.sources_access_paths : "${sp.source}-${sp.node_id}-${sp.fex_id}-${sp.port}" => sp if sp.channel == null && sp.fex_id != null }
+  dn         = "${aci_rest_managed.spanSrc[each.value.source].dn}/rssrcToPathEp-[${format("topology/pod-%s/paths-%s/extpaths-%s/pathep-[eth%s/%s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.fex_id, each.value.module != null ? each.value.module : 1, each.value.port)}]"
+  class_name = "spanRsSrcToPathEp"
+  content = {
+    tDn = format("topology/pod-%s/paths-%s/extpaths-%s/pathep-[eth%s/%s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.fex_id, each.value.module != null ? each.value.module : 1, each.value.port)
+  }
+}
+
+resource "aci_rest_managed" "spanRsSrcToPathEp_fex_channel" {
+  for_each   = { for sp in local.sources_access_paths : "${sp.source}-${sp.node_id}-${sp.fex_id}-${sp.channel}" => sp if sp.channel != null && sp.fex_id != null }
+  dn         = "${aci_rest_managed.spanSrc[each.value.source].dn}/rssrcToPathEp-[${format(each.value.node2_id != null && each.value.fex2_id != null ? "topology/pod-%s/protpaths-%s-%s/extprotpaths-%s-%s/pathep-[%s]" : "topology/pod-%s/paths-%s/extpaths-%[4]s/pathep-[%[6]s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.node2_id, each.value.fex_id, each.value.fex2_id, each.value.channel)}]"
+  class_name = "spanRsSrcToPathEp"
+  content = {
+    tDn = format(each.value.node2_id != null && each.value.fex2_id != null ? "topology/pod-%s/protpaths-%s-%s/extprotpaths-%s-%s/pathep-[%s]" : "topology/pod-%s/paths-%s/extpaths-%[4]s/pathep-[%[6]s]", each.value.pod_id != null ? each.value.pod_id : 1, each.value.node_id, each.value.node2_id, each.value.fex_id, each.value.fex2_id, each.value.channel)
   }
 }
 

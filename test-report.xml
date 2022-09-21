@@ -1,28 +1,24 @@
 <testsuites>
   <errors>0</errors>
   <failures>0</failures>
-  <tests>21</tests>
+  <tests>22</tests>
   <testsuite>
     <name>full</name>
-    <tests>15</tests>
+    <tests>16</tests>
     <skipped>0</skipped>
     <errors>0</errors>
     <failures>0</failures>
     <testcase>
-      <name>adminSt</name>
-      <classname>spanSrcGrp</classname>
-    </testcase>
-    <testcase>
-      <name>descr</name>
-      <classname>spanSrcGrp</classname>
-    </testcase>
-    <testcase>
-      <name>name</name>
-      <classname>spanSrcGrp</classname>
+      <name>tDn</name>
+      <classname>spanRsSrcGrpToFilterGrp</classname>
     </testcase>
     <testcase>
       <name>tDn</name>
-      <classname>spanRsSrcGrpToFilterGrp</classname>
+      <classname>spanRsSrcToPathEp</classname>
+    </testcase>
+    <testcase>
+      <name>tDn</name>
+      <classname>spanRsSrcToEpg</classname>
     </testcase>
     <testcase>
       <name>descr</name>
@@ -35,6 +31,30 @@
     <testcase>
       <name>tag</name>
       <classname>spanSpanLbl</classname>
+    </testcase>
+    <testcase>
+      <name>addr</name>
+      <classname>spanRsSrcToL3extOut</classname>
+    </testcase>
+    <testcase>
+      <name>encap</name>
+      <classname>spanRsSrcToL3extOut</classname>
+    </testcase>
+    <testcase>
+      <name>tDn</name>
+      <classname>spanRsSrcToL3extOut</classname>
+    </testcase>
+    <testcase>
+      <name>adminSt</name>
+      <classname>spanSrcGrp</classname>
+    </testcase>
+    <testcase>
+      <name>descr</name>
+      <classname>spanSrcGrp</classname>
+    </testcase>
+    <testcase>
+      <name>name</name>
+      <classname>spanSrcGrp</classname>
     </testcase>
     <testcase>
       <name>descr</name>
@@ -51,22 +71,6 @@
     <testcase>
       <name>spanOnDrop</name>
       <classname>spanSrc</classname>
-    </testcase>
-    <testcase>
-      <name>addr</name>
-      <classname>spanRsSrcToL3extOut</classname>
-    </testcase>
-    <testcase>
-      <name>encap</name>
-      <classname>spanRsSrcToL3extOut</classname>
-    </testcase>
-    <testcase>
-      <name>tDn</name>
-      <classname>spanRsSrcToL3extOut</classname>
-    </testcase>
-    <testcase>
-      <name>tDn</name>
-      <classname>spanRsSrcToEpg</classname>
     </testcase>
   </testsuite>
   <testsuite>

@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.3.0"
+  required_version = ">= 1.1.0"
   required_providers {
     test = {
       source = "terraform.io/builtin/test"
@@ -25,12 +25,36 @@ module "main" {
       tenant              = "TEN1"
       application_profile = "APP1"
       endpoint_group      = "EPG1"
+      access_paths = [
+        {
+          node_id = 1001
+          port    = 11
+        },
+        {
+          node_id  = 101
+          node2_id = 102
+          fex_id   = 151
+          fex2_id  = 152
+          channel  = "ipg_vpc_test"
+        },
+        {
+          node_id = 101
+          fex_id  = 151
+          channel = "ipg_regular-po_test"
+        },
+        {
+          node_id = 101
+          fex_id  = 151
+          port    = 1
+        }
+      ]
     },
     {
-      name   = "SRC2"
-      tenant = "TEN1"
-      l3out  = "L3OUT1"
-      vlan   = 123
+      name         = "SRC2"
+      tenant       = "TEN1"
+      l3out        = "L3OUT1"
+      vlan         = 123
+      access_paths = []
     }
   ]
   filter_group = "FILTER1"
@@ -112,6 +136,66 @@ resource "test_assertions" "spanRsSrcToEpg" {
     description = "tDn"
     got         = data.aci_rest_managed.spanRsSrcToEpg.content.tDn
     want        = "uni/tn-TEN1/ap-APP1/epg-EPG1"
+  }
+}
+
+data "aci_rest_managed" "spanRsSrcToPathEp_port" {
+  dn         = "${data.aci_rest_managed.spanSrc1.id}/rssrcToPathEp-[topology/pod-1/paths-101/extpaths-151/pathep-[eth1/1]]"
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "spanRsSrcToPathEp_port" {
+  component = "spanRsSrcToPathEp"
+
+  equal "tDn" {
+    description = "tDn"
+    got         = data.aci_rest_managed.spanRsSrcToPathEp_port.content.tDn
+    want        = "topology/pod-1/paths-101/extpaths-151/pathep-[eth1/1]"
+  }
+}
+
+data "aci_rest_managed" "spanRsSrcToPathEp_fex_channel1" {
+  dn         = "${data.aci_rest_managed.spanSrc1.id}/rssrcToPathEp-[topology/pod-1/paths-101/extpaths-151/pathep-[ipg_regular-po_test]]"
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "spanRsSrcToPathEp_fex_channel1" {
+  component = "spanRsSrcToPathEp"
+
+  equal "tDn" {
+    description = "tDn"
+    got         = data.aci_rest_managed.spanRsSrcToPathEp_fex_channel1.content.tDn
+    want        = "topology/pod-1/paths-101/extpaths-151/pathep-[ipg_regular-po_test]"
+  }
+}
+
+data "aci_rest_managed" "spanRsSrcToPathEp_fex_channel2" {
+  dn         = "${data.aci_rest_managed.spanSrc1.id}/rssrcToPathEp-[topology/pod-1/protpaths-101-102/extprotpaths-151-152/pathep-[ipg_vpc_test]]"
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "spanRsSrcToPathEp_fex_channel2" {
+  component = "spanRsSrcToPathEp"
+
+  equal "tDn" {
+    description = "tDn"
+    got         = data.aci_rest_managed.spanRsSrcToPathEp_fex_channel2.content.tDn
+    want        = "topology/pod-1/protpaths-101-102/extprotpaths-151-152/pathep-[ipg_vpc_test]"
+  }
+}
+
+data "aci_rest_managed" "spanRsSrcToPathEp_fex_port" {
+  dn         = "${data.aci_rest_managed.spanSrc1.id}/rssrcToPathEp-[topology/pod-1/paths-101/extpaths-151/pathep-[eth1/1]]"
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "spanRsSrcToPathEp_fex_port" {
+  component = "spanRsSrcToPathEp"
+
+  equal "tDn" {
+    description = "tDn"
+    got         = data.aci_rest_managed.spanRsSrcToPathEp_fex_port.content.tDn
+    want        = "topology/pod-1/paths-101/extpaths-151/pathep-[eth1/1]"
   }
 }
 

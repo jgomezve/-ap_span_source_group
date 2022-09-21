@@ -37,6 +37,17 @@ variable "sources" {
     endpoint_group      = optional(string)
     l3out               = optional(string)
     vlan                = optional(number)
+    access_paths = list(object({
+      node_id  = number
+      node2_id = optional(number)
+      fex_id   = optional(number)
+      fex2_id  = optional(number)
+      pod_id   = optional(number)
+      port     = optional(number)
+      sub_port = optional(number)
+      module   = optional(number)
+      channel  = optional(string)
+    }))
   }))
   default = []
 
@@ -55,7 +66,7 @@ variable "filter_group" {
 }
 
 variable "destination" {
-  description = "SPAN Source Destination Gorup."
+  description = "SPAN Source Destination Group."
   type = object({
     description = optional(string)
     name        = string
