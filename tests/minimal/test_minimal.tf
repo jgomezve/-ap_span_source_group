@@ -12,36 +12,15 @@ terraform {
 }
 
 module "main" {
-  source      = "../.."
-  name        = "TEST_TF"
-  description = "My Test Span Group"
-  admin_state = true
-  sources = [
-    {
-      name                = "SRC1"
-      description         = "Source1"
-      direction           = "both"
-      span_drop           = "true"
-      tenant              = "TEN1"
-      application_profile = "APP1"
-      endpoint_group      = "EPG1"
-    },
-    {
-      name   = "SRC2"
-      tenant = "TEN1"
-      l3out  = "L3OUT1"
-      vlan   = 123
-    }
-  ]
-  filter_group = "FILTER1"
+  source = "../.."
+  name   = "TEST_MIN"
   destination = {
-    name           = "TEST_DST"
-    desdescription = "My Destination"
+    name = "TEST_DST"
   }
 }
 
 data "aci_rest_managed" "spanSrcGrp" {
-  dn         = "uni/infra/srcgrp-TEST_GRP"
+  dn         = "uni/infra/srcgrp-TEST_MIN"
   depends_on = [module.main]
 }
 
@@ -51,7 +30,7 @@ resource "test_assertions" "spanSrcGrp" {
   equal "name" {
     description = "name"
     got         = data.aci_rest_managed.spanSrcGrp.content.name
-    want        = "TEST_GRP"
+    want        = "TEST_MIN"
   }
 
   equal "descr" {
@@ -63,40 +42,34 @@ resource "test_assertions" "spanSrcGrp" {
   equal "adminSt" {
     description = "adminSt"
     got         = data.aci_rest_managed.spanSrcGrp.content.adminSt
-    want        = true
+    want        = "disabled"
   }
 }
 
-data "aci_rest_managed" "spanSrc" {
-  dn         = "uni/infra/srcgrp-TEST_GRP/src-SR1"
+
+data "aci_rest_managed" "spanSpanLbl" {
+  dn         = "${data.aci_rest_managed.spanSrcGrp.id}/spanlbl-TEST_DST"
   depends_on = [module.main]
 }
 
-resource "test_assertions" "spanSrc" {
-  component = "spanSrc"
-
-  equal "name" {
-    description = "name"
-    got         = data.aci_rest_managed.spanSrc.content.name
-    want        = "SRC1dd"
-  }
+resource "test_assertions" "spanSpanLbl" {
+  component = "spanSpanLbl"
 
   equal "descr" {
     description = "descr"
-    got         = data.aci_rest_managed.spanSrc.content.descr
-    want        = "Source1"
+    got         = data.aci_rest_managed.spanSpanLbl.content.descr
+    want        = ""
   }
 
-  equal "dir" {
-    description = "dir"
-    got         = data.aci_rest_managed.spanSrc.content.dir
-    want        = "both"
+  equal "name" {
+    description = "name"
+    got         = data.aci_rest_managed.spanSpanLbl.content.name
+    want        = "TEST_DST"
   }
 
-  equal "spanOnDrop" {
-    description = "spanOnDrop"
-    got         = data.aci_rest_managed.spanSrc.content.spanOnDrop
-    want        = "trfdue"
+  equal "tag" {
+    description = "tag"
+    got         = data.aci_rest_managed.spanSpanLbl.content.tag
+    want        = "yellow-green"
   }
 }
-

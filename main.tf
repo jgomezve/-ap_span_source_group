@@ -16,7 +16,7 @@ resource "aci_rest_managed" "spanSrc" {
     name       = each.value.name
     descr      = each.value.description != null ? each.value.description : ""
     dir        = each.value.direction != null ? each.value.direction : "both"
-    spanOnDrop = each.value.span_drop != null ? each.value.span_drop : "false"
+    spanOnDrop = each.value.span_drop != null ? each.value.span_drop : "no"
   }
 }
 

@@ -1,35 +1,103 @@
 <testsuites>
-  <errors>2</errors>
+  <errors>0</errors>
   <failures>0</failures>
-  <tests>2</tests>
+  <tests>21</tests>
   <testsuite>
     <name>full</name>
-    <tests>1</tests>
+    <tests>15</tests>
     <skipped>0</skipped>
-    <errors>1</errors>
+    <errors>0</errors>
     <failures>0</failures>
     <testcase>
-      <name>(plan)</name>
-      <classname>(plan)</classname>
-      <error>
-        <message>failed to create a plan</message>
-      </error>
-      <system-out>&#xA;Warning: The test provider is experimental&#xA;&#xA;  with provider[&#34;terraform.io/builtin/test&#34;],&#xA;The Terraform team is using the test provider&#xA;(terraform.io/builtin/test) as part of ongoing research about&#xA;declarative testing of Terraform modules.&#xA;&#xA;The availability and behavior of this provider is expected to&#xA;change significantly even in patch releases, so we recommend using&#xA;this provider only in test configurations and constraining your&#xA;test configurations to an exact Terraform version.&#xA;&#xA;Error: Missing required argument&#xA;&#xA;The argument &#34;url&#34; is required, but was not set.&#xA;&#xA;Error: Missing required argument&#xA;&#xA;The argument &#34;username&#34; is required, but was not set.&#xA;</system-out>
+      <name>adminSt</name>
+      <classname>spanSrcGrp</classname>
+    </testcase>
+    <testcase>
+      <name>descr</name>
+      <classname>spanSrcGrp</classname>
+    </testcase>
+    <testcase>
+      <name>name</name>
+      <classname>spanSrcGrp</classname>
+    </testcase>
+    <testcase>
+      <name>tDn</name>
+      <classname>spanRsSrcGrpToFilterGrp</classname>
+    </testcase>
+    <testcase>
+      <name>descr</name>
+      <classname>spanSpanLbl</classname>
+    </testcase>
+    <testcase>
+      <name>name</name>
+      <classname>spanSpanLbl</classname>
+    </testcase>
+    <testcase>
+      <name>tag</name>
+      <classname>spanSpanLbl</classname>
+    </testcase>
+    <testcase>
+      <name>descr</name>
+      <classname>spanSrc</classname>
+    </testcase>
+    <testcase>
+      <name>dir</name>
+      <classname>spanSrc</classname>
+    </testcase>
+    <testcase>
+      <name>name</name>
+      <classname>spanSrc</classname>
+    </testcase>
+    <testcase>
+      <name>spanOnDrop</name>
+      <classname>spanSrc</classname>
+    </testcase>
+    <testcase>
+      <name>addr</name>
+      <classname>spanRsSrcToL3extOut</classname>
+    </testcase>
+    <testcase>
+      <name>encap</name>
+      <classname>spanRsSrcToL3extOut</classname>
+    </testcase>
+    <testcase>
+      <name>tDn</name>
+      <classname>spanRsSrcToL3extOut</classname>
+    </testcase>
+    <testcase>
+      <name>tDn</name>
+      <classname>spanRsSrcToEpg</classname>
     </testcase>
   </testsuite>
   <testsuite>
     <name>minimal</name>
-    <tests>1</tests>
+    <tests>6</tests>
     <skipped>0</skipped>
-    <errors>1</errors>
+    <errors>0</errors>
     <failures>0</failures>
     <testcase>
-      <name>(plan)</name>
-      <classname>(plan)</classname>
-      <error>
-        <message>failed to create a plan</message>
-      </error>
-      <system-out>&#xA;Warning: The test provider is experimental&#xA;&#xA;  with provider[&#34;terraform.io/builtin/test&#34;],&#xA;The Terraform team is using the test provider&#xA;(terraform.io/builtin/test) as part of ongoing research about&#xA;declarative testing of Terraform modules.&#xA;&#xA;The availability and behavior of this provider is expected to&#xA;change significantly even in patch releases, so we recommend using&#xA;this provider only in test configurations and constraining your&#xA;test configurations to an exact Terraform version.&#xA;&#xA;Error: Missing required argument&#xA;&#xA;The argument &#34;url&#34; is required, but was not set.&#xA;&#xA;Error: Missing required argument&#xA;&#xA;The argument &#34;username&#34; is required, but was not set.&#xA;</system-out>
+      <name>adminSt</name>
+      <classname>spanSrcGrp</classname>
+    </testcase>
+    <testcase>
+      <name>descr</name>
+      <classname>spanSrcGrp</classname>
+    </testcase>
+    <testcase>
+      <name>name</name>
+      <classname>spanSrcGrp</classname>
+    </testcase>
+    <testcase>
+      <name>descr</name>
+      <classname>spanSpanLbl</classname>
+    </testcase>
+    <testcase>
+      <name>name</name>
+      <classname>spanSpanLbl</classname>
+    </testcase>
+    <testcase>
+      <name>tag</name>
+      <classname>spanSpanLbl</classname>
     </testcase>
   </testsuite>
 </testsuites>
