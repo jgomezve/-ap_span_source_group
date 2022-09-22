@@ -1,5 +1,5 @@
 module "aci-access-span-source-group" {
-  source      = "netascode/scaffolding/aci"
+  source      = "netascode/access-span-source-group/aci"
   version     = "0.1.0"
   name        = "SPAN1"
   description = "My Test Span Group"

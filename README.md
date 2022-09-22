@@ -6,13 +6,13 @@
 Description
 
 Location in GUI:
-`Tenants` » `XXX`
+`Fabric` » `Access Policies` » `Policies` » `Troubleshooting` » `SPAN` » `SPAN Source Groups`
 
 ## Examples
 
 ```hcl
 module "aci-access-span-source-group" {
-  source      = "netascode/scaffolding/aci"
+  source      = "netascode/access-span-source-group/aci"
   version     = "0.1.0"
   name        = "SPAN1"
   description = "My Test Span Group"
@@ -70,7 +70,7 @@ module "aci-access-span-source-group" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aci"></a> [aci](#provider\_aci) | >= 2.0.0 |
+| <a name="provider_aci"></a> [aci](#provider\_aci) | 2.5.2 |
 
 ## Inputs
 

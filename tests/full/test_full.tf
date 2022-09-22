@@ -50,11 +50,10 @@ module "main" {
       ]
     },
     {
-      name         = "SRC2"
-      tenant       = "TEN1"
-      l3out        = "L3OUT1"
-      vlan         = 123
-      access_paths = []
+      name   = "SRC2"
+      tenant = "TEN1"
+      l3out  = "L3OUT1"
+      vlan   = 123
     }
   ]
   filter_group = "FILTER1"
