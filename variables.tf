@@ -28,26 +28,26 @@ variable "admin_state" {
 variable "sources" {
   description = "List of SPAN sources. Default value `direction`: `both`. Default value `span_drop`: `false`."
   type = list(object({
-    description         = optional(string)
+    description         = optional(string, "")
     name                = string
-    direction           = optional(string)
-    span_drop           = optional(string)
+    direction           = optional(string, "both")
+    span_drop           = optional(string, "no")
     tenant              = optional(string)
     application_profile = optional(string)
     endpoint_group      = optional(string)
     l3out               = optional(string)
     vlan                = optional(number)
-    access_paths = list(object({
+    access_paths = optional(list(object({
       node_id  = number
       node2_id = optional(number)
       fex_id   = optional(number)
       fex2_id  = optional(number)
-      pod_id   = optional(number)
+      pod_id   = optional(number, 1)
       port     = optional(number)
       sub_port = optional(number)
-      module   = optional(number)
+      module   = optional(number, 1)
       channel  = optional(string)
-    }))
+    })), [])
   }))
   default = []
 
@@ -68,7 +68,7 @@ variable "filter_group" {
 variable "destination" {
   description = "SPAN Source Destination Group."
   type = object({
-    description = optional(string)
+    description = optional(string, "")
     name        = string
   })
 }
