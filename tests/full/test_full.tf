@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.1.0"
+  required_version = ">= 1.0.0"
   required_providers {
     test = {
       source = "terraform.io/builtin/test"
@@ -21,7 +21,7 @@ module "main" {
       name                = "SRC1"
       description         = "Source1"
       direction           = "both"
-      span_drop           = "no"
+      span_drop           = false
       tenant              = "TEN1"
       application_profile = "APP1"
       endpoint_group      = "EPG1"
