@@ -60,7 +60,7 @@ variable "sources" {
 }
 
 variable "filter_group" {
-  description = "SPAN Source Filter Gorup."
+  description = "SPAN Source Filter Group."
   type        = string
   default     = null
 }
