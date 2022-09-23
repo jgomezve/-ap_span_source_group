@@ -21,7 +21,7 @@ module "main" {
       name                = "SRC1"
       description         = "Source1"
       direction           = "both"
-      span_drop           = "no"
+      span_drop           = false
       tenant              = "TEN1"
       application_profile = "APP1"
       endpoint_group      = "EPG1"

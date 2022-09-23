@@ -31,7 +31,7 @@ variable "sources" {
     description         = optional(string, "")
     name                = string
     direction           = optional(string, "both")
-    span_drop           = optional(string, "no")
+    span_drop           = optional(bool, false)
     tenant              = optional(string)
     application_profile = optional(string)
     endpoint_group      = optional(string)
