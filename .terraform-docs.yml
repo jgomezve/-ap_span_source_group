@@ -5,9 +5,9 @@ formatter: markdown table
 content: |-
   [![Tests](https://github.com/netascode/terraform-aci-access-span-source-group/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml)
 
-  # Terraform ACI Access Span Source Group
+  # Terraform ACI Access SPAN Source Group Module
 
-  Description
+  Manages ACI Access SPAN Source Group
 
   Location in GUI:
   `Fabric` » `Access Policies` » `Policies` » `Troubleshooting` » `SPAN` » `SPAN Source Groups`

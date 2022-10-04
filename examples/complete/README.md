@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Access SPAN Source Group
+# Access SPAN Source Group Example
 
 To run this example you need to execute:
 

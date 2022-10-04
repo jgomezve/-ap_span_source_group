@@ -12,11 +12,10 @@ terraform {
 }
 
 module "main" {
-  source = "../.."
-  name   = "TEST_MIN"
-  destination = {
-    name = "TEST_DST"
-  }
+  source           = "../.."
+  name             = "TEST_MIN"
+  destination_name = "TEST_DST"
+
 }
 
 data "aci_rest_managed" "spanSrcGrp" {

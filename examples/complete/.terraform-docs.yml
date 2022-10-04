@@ -3,7 +3,7 @@ version: '>= 0.14.0'
 formatter: markdown table
 
 content: |-
-  # Access SPAN Source Group
+  # Access SPAN Source Group Example
 
   To run this example you need to execute:
 
