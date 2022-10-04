@@ -40,7 +40,7 @@ resource "aci_rest_managed" "spanSrc" {
 }
 
 resource "aci_rest_managed" "spanRsSrcToEpg" {
-  for_each   = { for source in var.sources : source.name => source if source.tenant != "" && source.application_profile != "" && source.endpoint_group != "" }
+  for_each   = { for source in var.sources : source.name => source if source.tenant != null && source.application_profile != null && source.endpoint_group != null }
   dn         = "${aci_rest_managed.spanSrc[each.value.name].dn}/rssrcToEpg"
   class_name = "spanRsSrcToEpg"
   content = {
@@ -49,7 +49,7 @@ resource "aci_rest_managed" "spanRsSrcToEpg" {
 }
 
 resource "aci_rest_managed" "spanRsSrcToL3extOut" {
-  for_each   = { for source in var.sources : source.name => source if source.tenant != "" && source.l3out != "" && source.vlan != 0 }
+  for_each   = { for source in var.sources : source.name => source if source.tenant != null && source.l3out != null && source.vlan != null }
   dn         = "${aci_rest_managed.spanSrc[each.value.name].dn}/rssrcToL3extOut"
   class_name = "spanRsSrcToL3extOut"
   content = {
