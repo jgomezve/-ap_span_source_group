@@ -21,7 +21,7 @@ resource "aci_rest_managed" "spanSrcGrp" {
   dn         = "uni/infra/srcgrp-${var.name}"
   class_name = "spanSrcGrp"
   content = {
-    adminSt = var.admin_state == false ? "disabled" : "enabled"
+    adminSt = var.admin_state == true ? "enabled" : "disabled"
     descr   = var.description
     name    = var.name
   }
