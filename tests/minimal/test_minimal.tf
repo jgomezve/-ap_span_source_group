@@ -41,7 +41,7 @@ resource "test_assertions" "spanSrcGrp" {
   equal "adminSt" {
     description = "adminSt"
     got         = data.aci_rest_managed.spanSrcGrp.content.adminSt
-    want        = "disabled"
+    want        = "enabled"
   }
 }
 

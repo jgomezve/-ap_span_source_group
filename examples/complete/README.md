@@ -17,7 +17,7 @@ module "aci-access-span-source-group" {
   version     = "0.0.1"
   name        = "SPAN1"
   description = "My Test Span Group"
-  admin_state = true
+  admin_state = false
   sources = [
     {
       name                = "SRC1"

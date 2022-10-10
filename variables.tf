@@ -22,7 +22,7 @@ variable "description" {
 variable "admin_state" {
   description = "SPAN Source Group Administrative state."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "sources" {

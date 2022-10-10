@@ -15,7 +15,7 @@ module "main" {
   source      = "../.."
   name        = "TEST_FULL"
   description = "My Test Span Group"
-  admin_state = true
+  admin_state = false
   sources = [
     {
       name                = "SRC1"
@@ -85,7 +85,7 @@ resource "test_assertions" "spanSrcGrp" {
   equal "adminSt" {
     description = "adminSt"
     got         = data.aci_rest_managed.spanSrcGrp.content.adminSt
-    want        = "enabled"
+    want        = "disabled"
   }
 }
 
