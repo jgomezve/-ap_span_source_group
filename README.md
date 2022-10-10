@@ -1,9 +1,9 @@
 <!-- BEGIN_TF_DOCS -->
 [![Tests](https://github.com/netascode/terraform-aci-access-span-source-group/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml)
 
-# Terraform ACI Access Span Source Group
+# Terraform ACI Access SPAN Source Group Module
 
-Description
+Manages ACI Access SPAN Source Group
 
 Location in GUI:
 `Fabric` » `Access Policies` » `Policies` » `Troubleshooting` » `SPAN` » `SPAN Source Groups`
@@ -63,7 +63,7 @@ module "aci-access-span-source-group" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 2.0.0 |
 
 ## Providers
@@ -79,9 +79,10 @@ module "aci-access-span-source-group" {
 | <a name="input_name"></a> [name](#input\_name) | SPAN Source Group name. | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | SPAN Source Group description. | `string` | `""` | no |
 | <a name="input_admin_state"></a> [admin\_state](#input\_admin\_state) | SPAN Source Group Administrative state. | `bool` | `false` | no |
-| <a name="input_sources"></a> [sources](#input\_sources) | List of SPAN sources. Default value `direction`: `both`. Default value `span_drop`: `false`. | <pre>list(object({<br>    description         = optional(string, "")<br>    name                = string<br>    direction           = optional(string, "both")<br>    span_drop           = optional(bool, false)<br>    tenant              = optional(string)<br>    application_profile = optional(string)<br>    endpoint_group      = optional(string)<br>    l3out               = optional(string)<br>    vlan                = optional(number)<br>    access_paths = optional(list(object({<br>      node_id  = number<br>      node2_id = optional(number)<br>      fex_id   = optional(number)<br>      fex2_id  = optional(number)<br>      pod_id   = optional(number, 1)<br>      port     = optional(number)<br>      sub_port = optional(number)<br>      module   = optional(number, 1)<br>      channel  = optional(string)<br>    })), [])<br>  }))</pre> | `[]` | no |
-| <a name="input_filter_group"></a> [filter\_group](#input\_filter\_group) | SPAN Source Filter Group. | `string` | `null` | no |
-| <a name="input_destination"></a> [destination](#input\_destination) | SPAN Source Destination Group. | <pre>object({<br>    description = optional(string, "")<br>    name        = string<br>  })</pre> | n/a | yes |
+| <a name="input_sources"></a> [sources](#input\_sources) | List of SPAN sources. Choices `direction`: `in`, `both`, `out`. Default value `direction`: `both`. Choices `span_drop`: `false`, `true`. Default value `span_drop`: `false`. List of Access Paths `access_paths`. Allowed values `node_id`, `node2_id`: `1` - `4000`. Allowed values `fex_id`, `fex2_id`: `101` - `199`. Allowed values `vlan`: `1` - `4096`. Allowed values `pod_id`: `1` - `255`. Default value `pod_id`: `1`. Allowed values `port`: `1` - `127`. Allowed values `sub_port`: `1` - `16`. Allowed values `module`: `1` - `9`. Default value `module`: `1`. | <pre>list(object({<br>    description         = optional(string, "")<br>    name                = string<br>    direction           = optional(string, "both")<br>    span_drop           = optional(bool, false)<br>    tenant              = optional(string)<br>    application_profile = optional(string)<br>    endpoint_group      = optional(string)<br>    l3out               = optional(string)<br>    vlan                = optional(number)<br>    access_paths = optional(list(object({<br>      node_id  = number<br>      node2_id = optional(number)<br>      fex_id   = optional(number)<br>      fex2_id  = optional(number)<br>      pod_id   = optional(number, 1)<br>      port     = optional(number)<br>      sub_port = optional(number)<br>      module   = optional(number, 1)<br>      channel  = optional(string)<br>    })), [])<br>  }))</pre> | `[]` | no |
+| <a name="input_filter_group"></a> [filter\_group](#input\_filter\_group) | SPAN Source Filter Group. | `string` | `""` | no |
+| <a name="input_destination_name"></a> [destination\_name](#input\_destination\_name) | SPAN Source Destination Group Name. | `string` | n/a | yes |
+| <a name="input_destination_description"></a> [destination\_description](#input\_destination\_description) | SPAN Source Destination Group Description. | `string` | `""` | no |
 
 ## Outputs
 

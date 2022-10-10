@@ -56,11 +56,10 @@ module "main" {
       vlan   = 123
     }
   ]
-  filter_group = "FILTER1"
-  destination = {
-    name        = "TEST_DST"
-    description = "My Destination"
-  }
+  filter_group            = "FILTER1"
+  destination_name        = "TEST_DST"
+  destination_description = "My Destination"
+
 }
 
 data "aci_rest_managed" "spanSrcGrp" {

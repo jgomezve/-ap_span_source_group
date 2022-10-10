@@ -105,7 +105,7 @@ resource "aci_rest_managed" "spanRsSrcToPathEp_fex_channel" {
 }
 
 resource "aci_rest_managed" "spanRsSrcGrpToFilterGrp" {
-  count      = var.filter_group != null ? 1 : 0
+  count      = var.filter_group != "" ? 1 : 0
   dn         = "${aci_rest_managed.spanSrcGrp.dn}/rssrcGrpToFilterGrp"
   class_name = "spanRsSrcGrpToFilterGrp"
   content = {
@@ -114,11 +114,11 @@ resource "aci_rest_managed" "spanRsSrcGrpToFilterGrp" {
 }
 
 resource "aci_rest_managed" "spanSpanLbl" {
-  dn         = "${aci_rest_managed.spanSrcGrp.dn}/spanlbl-${var.destination.name}"
+  dn         = "${aci_rest_managed.spanSrcGrp.dn}/spanlbl-${var.destination_name}"
   class_name = "spanSpanLbl"
   content = {
-    descr = var.destination.description
-    name  = var.destination.name
+    descr = var.destination_description
+    name  = var.destination_name
     tag   = "yellow-green"
   }
 }
